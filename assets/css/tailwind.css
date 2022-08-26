@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&family=Poppins&display=swap');
+@font-face {
+    font-family: 'Maiandra GD Demi Bold';
+    src: url('../../public/fonts/Maiandra GD Demi Bold.ttf');
+  }

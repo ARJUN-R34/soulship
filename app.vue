@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: 'Vitesse Nuxt 3',
+  title: 'Soul Ship',
   link: [
     {
       rel: 'icon', type: 'image/png', href: '/nuxt.png',
@@ -10,7 +10,7 @@ useHead({
 </script>
 
 <template>
-  <NuxtLayout>
+  <NuxtLayout class="overflow-hidden">
     <NuxtPage />
   </NuxtLayout>
 </template>
