@@ -1,10 +1,12 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
+  buildModules: [
+    ['@nuxtjs/tailwindcss'],
+  ],
   modules: [
-    '@nuxtjs/tailwindcss',
-    '@vueuse/nuxt',
     '@pinia/nuxt',
+    '@vueuse/nuxt',
     '@nuxtjs/color-mode',
   ],
   css: ['~/assets/css/tailwind.css'],

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RiAddFill } from 'vue-remix-icons'
 import type { ICoulmnData } from '~~/utils/interfaces'
 const content = [{
   name: 'Soulship Org',
