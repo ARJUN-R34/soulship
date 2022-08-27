@@ -8,11 +8,6 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
   ],
   css: ['~/assets/css/tailwind.css'],
-  build: {
-    postcss: {
-      postcssOptions: require('./postcss.config.js'),
-    },
-  },
   experimental: {
     reactivityTransform: true,
     viteNode: false,
