@@ -31,17 +31,17 @@ const selected = 0
                 </li>
               </NuxtLink>
               <NuxtLink href="/create-collection">
-                <li class="drawer-item">
+                <li class="drawer-item" :class="selected === 1 ? 'drawer-item-selected' : ''">
                   <RiFolderAddFill class="drawer-icon" />Create Collection
                 </li>
               </NuxtLink>
               <NuxtLink href="/my-tokens">
-                <li class="drawer-item">
+                <li class="drawer-item" :class="selected === 2 ? 'drawer-item-selected' : ''">
                   <RiCopperCoinFill class="drawer-icon" />My Tokens
                 </li>
               </NuxtLink>
               <NuxtLink href="/notifications">
-                <li class="drawer-item">
+                <li class="drawer-item" :class="selected === 3 ? 'drawer-item-selected' : ''">
                   <RiNotification3Fill class="drawer-icon" />Notifications
                 </li>
               </NuxtLink>
