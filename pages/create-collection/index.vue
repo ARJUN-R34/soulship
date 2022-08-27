@@ -1,4 +1,23 @@
 <script setup lang="ts">
+import type { CIDString } from 'web3.storage'
+import type { ICoulmnData } from '~~/utils/interfaces'
+
+const content = [{
+  name: 'Soulship Org',
+  address: '0x9d95e67f1B30610f58Fd6D4588A11f851F2818d9',
+  utility: 'Gaming',
+  total_minted: 50,
+  total_burned: 8,
+  balance: 2,
+},
+{
+  name: 'Soulship Org 2',
+  address: '0x5695e63f4B30610f58Fd6D4588A11f851F2818d9',
+  utility: 'Entertainment',
+  total_minted: 150,
+  total_burned: 58,
+  balance: 10,
+}]
 const params = reactive({
   name: '',
   utility: '',
@@ -10,6 +29,14 @@ const UTILITIES = [
   'Finance',
   'Entertainment',
 ]
+const deploy = async () => {
+  console.log(params.logo)
+  let imgCid: CIDString
+  if (params.logo)
+    imgCid = await useStoreFile(params.logo)
+  const result = await useRetrieveFiles(imgCid)
+  console.log('🚀 ~ file: index.vue ~ line 70 ~ deploy ~ result', result)
+}
 </script>
 
 <template>
@@ -43,7 +70,7 @@ const UTILITIES = [
               <FormFileUpload v-model="params.logo" class="w-[50%]" @update:model-value="params.logo = $event" />
             </div>
             <div class="flex justify-end px-16">
-              <Button class="mt-12 mr-36 2xl:mr-48">
+              <Button class="mt-12 mr-36 2xl:mr-48" @click="deploy">
                 <template #content>
                   <label class="w-36 text-center gap-2 text-xs">
                     Deploy
