@@ -49,7 +49,6 @@ const colData: ICoulmnData[] = [
     accessor: 'balance',
   },
 ]
-const showModal = $ref<boolean>(false)
 const routeLink = (address: string) => {
   router.push(`/my-collections/${address}`)
 }
@@ -64,7 +63,7 @@ const routeLink = (address: string) => {
             <div class="text-gray-400 font-bold">
               My Collections
             </div>
-            <NuxtLink to="`/my-collections/$`">
+            <NuxtLink to="/create-collection">
               <Button>
                 <template #content>
                   <label class="flex justify-start items-center gap-2 text-xs">
@@ -88,7 +87,6 @@ const routeLink = (address: string) => {
         </div>
       </Suspense>
     </div>
-    <Modal v-if="showModal" type="SUCCESS" @click:close="showModal = $event" />
   </NuxtLayout>
 </template>
 

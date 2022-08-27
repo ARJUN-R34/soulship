@@ -3,12 +3,11 @@ useHead({
   title: 'Soul Ship',
   link: [
     {
-      rel: 'icon', type: 'image/png', href: '/nuxt.png',
+      rel: 'icon', type: 'image/png', href: '/soulship.png',
     },
   ],
 })
 const supabase = useSupabaseClient()
-console.log('🚀 ~ file: app.vue ~ line 11 ~ supabase', supabase)
 </script>
 
 <template>

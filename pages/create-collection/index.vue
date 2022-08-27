@@ -1,22 +1,4 @@
 <script setup lang="ts">
-import type { ICoulmnData } from '~~/utils/interfaces'
-
-const content = [{
-  name: 'Soulship Org',
-  address: '0x9d95e67f1B30610f58Fd6D4588A11f851F2818d9',
-  utility: 'Gaming',
-  total_minted: 50,
-  total_burned: 8,
-  balance: 2,
-},
-{
-  name: 'Soulship Org 2',
-  address: '0x5695e63f4B30610f58Fd6D4588A11f851F2818d9',
-  utility: 'Entertainment',
-  total_minted: 150,
-  total_burned: 58,
-  balance: 10,
-}]
 const params = reactive({
   name: '',
   utility: '',
