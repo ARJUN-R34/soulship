@@ -13,14 +13,14 @@ defineProps<IHeader>()
     <div v-if="main" class="text-base font-bold text-gray-400">
       <img alt="logo" src="assets/images/logo.svg">
     </div>
-    <NuxtLink href="/my-collections">
+    <!-- <NuxtLink href="/my-collections">
       <Button v-if="main" class="w-36 gap-2" type="button">
         <template #content>
           Launch
           <IconsLogin class="w-6 h-6 p-0 fill-white" />
         </template>
       </Button>
-    </NuxtLink>
+    </NuxtLink> -->
     <!-- <a class="btn btn-ghost normal-case text-xl">Soulship</a> -->
   </div>
 </template>

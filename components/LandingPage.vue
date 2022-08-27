@@ -12,7 +12,7 @@
   <NuxtLink href="/my-collections">
     <Button class="my-4">
       <template #content>
-        Go to Dapp
+        Launch Dapp
       </template>
     </Button>
   </NuxtLink>
