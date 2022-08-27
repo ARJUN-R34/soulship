@@ -5,7 +5,16 @@ export default defineNuxtConfig({
     ['@nuxtjs/tailwindcss'],
   ],
   modules: [
-    '@pinia/nuxt',
+    ['@pinia/nuxt', {
+      autoImports: [
+        // automatically imports `usePinia()`
+        'defineStore',
+        'storeToRefs',
+        // automatically imports `usePinia()` as `usePiniaStore()`
+        ['defineStore', 'definePiniaStore'],
+      ],
+    },
+    ],
     '@vueuse/nuxt',
     '@nuxtjs/color-mode',
   ],

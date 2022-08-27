@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 const wallet = '0x1Df817D5DFC41482Fe11feD319ad6056b80F9794'
 const user = useUserStore()
+let { selectedItem } = $(storeToRefs(useUserStore()))
+const { currentAddress } = $(storeToRefs(useUserStore()))
 const router = useRouter()
 const routeLink = (index: number, param: string) => {
-  user.selectedItem = index
+  selectedItem = index
   router.push({ path: param })
 }
 </script>
@@ -29,17 +31,17 @@ const routeLink = (index: number, param: string) => {
             </div>
             <ul class="mt-12 overflow-y-auto w-full text-gray-400">
               <!-- Sidebar content here -->
-              <li class="drawer-item" :class="user.selectedItem === 0 ? 'drawer-item-selected' : ''" @click="routeLink(0, '/my-collections')">
-                <RiListCheck class="drawer-icon" /> My Collections
+              <li class="drawer-item" :class="selectedItem === 0 ? 'drawer-item-selected' : ''" @click="routeLink(0, '/my-collections')">
+                <IconsCollection class="drawer-icon" /> My Collections
               </li>
-              <li class="drawer-item" :class="user.selectedItem === 1 ? 'drawer-item-selected' : ''" @click="routeLink(1, '/create-collection')">
-                <RiFolderAddFill class="drawer-icon" />Create Collection
+              <li class="drawer-item" :class="selectedItem === 1 ? 'drawer-item-selected' : ''" @click="routeLink(1, '/create-collection')">
+                <IconsList class="drawer-icon" />Create Collection
               </li>
-              <li class="drawer-item" :class="user.selectedItem === 2 ? 'drawer-item-selected' : ''" @click="routeLink(2, '/my-tokens')">
-                <RiCopperCoinFill class="drawer-icon" />My Tokens
+              <li class="drawer-item" :class="selectedItem === 2 ? 'drawer-item-selected' : ''" @click="routeLink(2, '/my-tokens')">
+                <IconsTokens class="drawer-icon" />My Tokens
               </li>
-              <li class="drawer-item" :class="user.selectedItem === 3 ? 'drawer-item-selected' : ''" @click="routeLink(3, '/notifications')">
-                <RiNotification3Fill class="drawer-icon" />Notifications
+              <li class="drawer-item" :class="selectedItem === 3 ? 'drawer-item-selected' : ''" @click="routeLink(3, '/notifications')">
+                <IconsNotification class="drawer-icon" />Notifications
               </li>
             </ul>
           </div>
@@ -48,8 +50,8 @@ const routeLink = (index: number, param: string) => {
               <Button class="w-full">
                 <template #content>
                   <label class="flex justify-start items-center gap-2 text-xs">
-                    <RiWallet3Fill class="w-4 h-4 fill-white" />
-                    {{ wallet.substring(0, 4) }}...{{ wallet.substring(wallet.length - 4, wallet.length - 1) }}
+                    <IconsWallet class="w-4 h-4 fill-white" />
+                    {{ currentAddress ? (`${wallet.substring(0, 4)}...${wallet.substring(wallet.length - 4, wallet.length - 1)}`) : 'Connect' }}
                   </label>
                 </template>
               </Button>

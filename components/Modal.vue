@@ -47,7 +47,7 @@ const emit = defineEmits<IModalEmit>()
         </svg>
       </div>
 
-      <div class="w-full text-center text-xl font-black">
+      <div class="w-full text-left text-base text-gray-400 font-bold">
         <slot name="title" />
       </div>
       <slot name="content" />
