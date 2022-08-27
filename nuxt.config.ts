@@ -19,6 +19,7 @@ export default defineNuxtConfig({
       ],
     },
     ],
+    '@nuxtjs/supabase',
     '@vueuse/nuxt',
     '@nuxtjs/color-mode',
   ],
