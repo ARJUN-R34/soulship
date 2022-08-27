@@ -1,7 +1,12 @@
 <script lang="ts" setup>
 import { RiCopperCoinFill, RiFolderAddFill, RiListCheck, RiNotification3Fill, RiWallet3Fill } from 'vue-remix-icons'
 const wallet = '0x1Df817D5DFC41482Fe11feD319ad6056b80F9794'
-const selected = 0
+const user = useUserStore()
+const router = useRouter()
+const routeLink = (index: number, param: string) => {
+  user.selectedItem = index
+  router.push({ path: param })
+}
 </script>
 
 <template>
@@ -25,26 +30,18 @@ const selected = 0
             </div>
             <ul class="mt-12 overflow-y-auto w-full text-gray-400">
               <!-- Sidebar content here -->
-              <NuxtLink href="/my-collections">
-                <li class="drawer-item" :class="selected === 0 ? 'drawer-item-selected' : ''">
-                  <RiListCheck class="drawer-icon" /> My Collections
-                </li>
-              </NuxtLink>
-              <NuxtLink href="/create-collection">
-                <li class="drawer-item" :class="selected === 1 ? 'drawer-item-selected' : ''">
-                  <RiFolderAddFill class="drawer-icon" />Create Collection
-                </li>
-              </NuxtLink>
-              <NuxtLink href="/my-tokens">
-                <li class="drawer-item" :class="selected === 2 ? 'drawer-item-selected' : ''">
-                  <RiCopperCoinFill class="drawer-icon" />My Tokens
-                </li>
-              </NuxtLink>
-              <NuxtLink href="/notifications">
-                <li class="drawer-item" :class="selected === 3 ? 'drawer-item-selected' : ''">
-                  <RiNotification3Fill class="drawer-icon" />Notifications
-                </li>
-              </NuxtLink>
+              <li class="drawer-item" :class="user.selectedItem === 0 ? 'drawer-item-selected' : ''" @click="routeLink(0, '/my-collections')">
+                <RiListCheck class="drawer-icon" /> My Collections
+              </li>
+              <li class="drawer-item" :class="user.selectedItem === 1 ? 'drawer-item-selected' : ''" @click="routeLink(1, '/create-collection')">
+                <RiFolderAddFill class="drawer-icon" />Create Collection
+              </li>
+              <li class="drawer-item" :class="user.selectedItem === 2 ? 'drawer-item-selected' : ''" @click="routeLink(2, '/my-tokens')">
+                <RiCopperCoinFill class="drawer-icon" />My Tokens
+              </li>
+              <li class="drawer-item" :class="user.selectedItem === 3 ? 'drawer-item-selected' : ''" @click="routeLink(3, '/notifications')">
+                <RiNotification3Fill class="drawer-icon" />Notifications
+              </li>
             </ul>
           </div>
           <div class="z-20 px-8 bg-opacity-90 backdrop-blur sticky bottom-4 items-center gap-2 py-4 flex pt-10">

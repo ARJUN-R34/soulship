@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { RiAddFill } from 'vue-remix-icons'
 import type { ICoulmnData } from '~~/utils/interfaces'
-
 const content = [{
   name: 'Soulship Org',
   address: '0x9d95e67f1B30610f58Fd6D4588A11f851F2818d9',
@@ -49,19 +49,29 @@ const colData: ICoulmnData[] = [
     accessor: 'balance',
   },
 ]
+const showModal = $ref<boolean>(false)
 </script>
 
 <template>
   <NuxtLayout name="dashboard">
-    <div class="font-poppins text-center w-full h-full">
+    <div class="font-poppins text-center w-full h-full px-8">
       <Suspense>
-        <main class="py-8 px-16">
-          <div>
-            <div>My Collections</div>
-            <Button>Create Collection</Button>
+        <div class="py-8 px-8">
+          <div class="collection-title">
+            <div class="text-gray-400 font-semibold">
+              My Collections
+            </div>
+            <Button @click="showModal = true">
+              <template #content>
+                <label class="flex justify-start items-center gap-2 text-xs">
+                  <RiAddFill class="w-4 h-4 fill-white" />
+                  Create Collection
+                </label>
+              </template>
+            </Button>
           </div>
           <Table
-            :is-hhover="true" :items="content" :col-data="colData"
+            :is-hover="true" :items="content" :col-data="colData"
           >
             <template #fallback>
               <div italic>
@@ -69,8 +79,15 @@ const colData: ICoulmnData[] = [
               </div>
             </template>
           </table>
-        </main>
+        </div>
       </Suspense>
     </div>
+    <Modal v-if="showModal" type="SUCCESS" @click:close="showModal = $event" />
   </NuxtLayout>
 </template>
+
+<style lang="postcss" scoped>
+ .collection-title {
+  @apply flex justify-between items-center mb-4;
+ }
+</style>

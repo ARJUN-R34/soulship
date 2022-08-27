@@ -1,21 +1,24 @@
 <script lang="ts" setup>
 interface IModal {
   type: string
-  show: boolean
+}
+interface IModalEmit<V = any> {
+  (e: 'click:close', value: V): void
 }
 defineProps<IModal>()
+const emit = defineEmits<IModalEmit>()
 </script>
 
 <template>
   <div
-    v-if="show"
     class="fixed top-0 right-0 bottom-0 left-0 flex justify-center z-20 bg-secondary bg-opacity-40 overflow-y-hidden"
     :class="$style.modal"
   >
     <div class="bg-secondary opacity-75 w-full h-full absolute top-0 left-0" />
     <div class="m-auto bg-secondary-100 relative p-20 shadow-modal rounded-[70px]" :class="$style['modal-box']">
       <button
-        class="btn btn-sm btn-circle btn-ghost absolute right-10 top-10 text-xl text-secondary font-black"
+        class="btn btn-sm btn-circle btn-ghost absolute right-10 top-10 text-xl text-gray-400 font-black"
+        @click="emit('click:close', false)"
       >
         ✕
       </button>
@@ -51,10 +54,16 @@ defineProps<IModal>()
       <div class="modal-action" :class="(type === 'SUCCESS' || type === 'ERROR') ? 'justify-center' : 'justify-end'">
         <!-- <a href="#" class="btn btn-primary text-base-100">Yay!</a> -->
         <slot name="buttons" />
-        <button v-if="type === 'SUCCESS'" class="btn btn-success font-bold" :class="$style.btn">
+        <button
+          v-if="type === 'SUCCESS'" class="btn btn-success font-bold" :class="$style.btn"
+          @click="emit('click:close', false)"
+        >
           Continue
         </button>
-        <button v-if="type === 'ERROR'" class="btn btn-error font-bold" :class="$style.btn">
+        <button
+          v-if="type === 'ERROR'" class="btn btn-error font-bold" :class="$style.btn"
+          @click="emit('click:close', false)"
+        >
           Try again
         </button>
       </div>

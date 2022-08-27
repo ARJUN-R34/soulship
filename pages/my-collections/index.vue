@@ -82,7 +82,7 @@ const showModal = $ref<boolean>(false)
         </div>
       </Suspense>
     </div>
-    <Modal type="SUCCESS" :show="showModal" />
+    <Modal v-if="showModal" type="SUCCESS" @click:close="showModal = $event" />
   </NuxtLayout>
 </template>
 
