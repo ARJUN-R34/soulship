@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { CIDString } from 'web3.storage'
 import type { ICoulmnData } from '~~/utils/interfaces'
 
 const content = [{
@@ -60,6 +61,14 @@ const UTILITIES = [
   'Finance',
   'Entertainment',
 ]
+const deploy = async () => {
+  console.log(params.logo)
+  let imgCid: CIDString
+  if (params.logo)
+    imgCid = await useStoreFile(params.logo)
+  const result = await useRetrieveFiles(imgCid)
+  console.log('🚀 ~ file: index.vue ~ line 70 ~ deploy ~ result', result)
+}
 </script>
 
 <template>
@@ -93,7 +102,7 @@ const UTILITIES = [
               <FormFileUpload v-model="params.logo" class="w-[50%]" @update:model-value="params.logo = $event" />
             </div>
             <div class="flex justify-end px-16">
-              <Button class="mt-12 mr-36 2xl:mr-48">
+              <Button class="mt-12 mr-36 2xl:mr-48" @click="deploy">
                 <template #content>
                   <label class="w-36 text-center gap-2 text-xs">
                     Deploy

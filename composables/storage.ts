@@ -16,11 +16,16 @@ function getAccessToken() {
 function makeStorageClient() {
   return new Web3Storage({ token: getAccessToken() })
 }
-export const useStoreFile = async (file: Iterable<Filelike>) => {
-  const client = makeStorageClient()
-  const cid = await client.put(file)
-  console.log('stored files with cid:', cid)
-  return cid
+export const useStoreFile = async (file: File) => {
+  try {
+    const client = makeStorageClient()
+    const cid = await client.put([file])
+    console.log('stored files with cid:', cid)
+    return cid
+  }
+  catch (error) {
+    console.log('🚀 ~ file: storage.ts ~ line 23 ~ useStoreFile ~ error', error)
+  }
 }
 export async function useRetrieveFiles(cid: CIDString) {
   const client = makeStorageClient()
@@ -29,6 +34,7 @@ export async function useRetrieveFiles(cid: CIDString) {
   if (!res!.ok)
     throw new Error(`failed to get ${cid}`)
   // request succeeded! do something with the response object here...
+  return res?.url
 }
 
 export function useMakeFileObject(obj: any) {
