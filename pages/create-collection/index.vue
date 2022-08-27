@@ -17,38 +17,6 @@ const content = [{
   total_burned: 58,
   balance: 10,
 }]
-const colData: ICoulmnData[] = [
-  {
-    title: 'Name',
-    flex: 1,
-    accessor: 'name',
-  },
-  {
-    title: 'Address',
-    flex: 1,
-    accessor: 'address',
-  },
-  {
-    title: 'Utility',
-    flex: 1,
-    accessor: 'utility',
-  },
-  {
-    title: 'Total Minted',
-    flex: 1,
-    accessor: 'total_minted',
-  },
-  {
-    title: 'Total Burned',
-    flex: 1,
-    accessor: 'total_burned',
-  },
-  {
-    title: 'Balance',
-    flex: 1,
-    accessor: 'balance',
-  },
-]
 const params = reactive({
   name: '',
   utility: '',

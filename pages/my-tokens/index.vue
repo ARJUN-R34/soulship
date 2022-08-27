@@ -4,28 +4,30 @@ const content = [{
   name: 'Soulship Org',
   address: '0x9d95e67f1B30610f58Fd6D4588A11f851F2818d9',
   utility: 'Gaming',
-  total_minted: 50,
-  total_burned: 8,
+  token_id: 50,
+  description: 'A one stop destination for the web3 users to create, deploy and manage Soulbound Tokens',
   balance: 2,
+  logo_url: 'https://avatars.githubusercontent.com/u/38809367?s=280&v=4s',
 },
 {
   name: 'Soulship Org 2',
   address: '0x5695e63f4B30610f58Fd6D4588A11f851F2818d9',
   utility: 'Entertainment',
-  total_minted: 150,
-  total_burned: 58,
+  token_id: 58,
+  description: 'A one stop destination for the web3 users to create, deploy and manage Soulbound Tokens',
   balance: 10,
+  logo_url: 'https://avatars.githubusercontent.com/u/38809367?s=280&v=4s',
 }]
 const colData: ICoulmnData[] = [
+  {
+    title: 'Token ID',
+    flex: 1,
+    accessor: 'token_id',
+  },
   {
     title: 'Name',
     flex: 1,
     accessor: 'name',
-  },
-  {
-    title: 'Address',
-    flex: 1,
-    accessor: 'address',
   },
   {
     title: 'Utility',
@@ -33,22 +35,17 @@ const colData: ICoulmnData[] = [
     accessor: 'utility',
   },
   {
-    title: 'Total Minted',
+    title: 'Address',
     flex: 1,
-    accessor: 'total_minted',
-  },
-  {
-    title: 'Total Burned',
-    flex: 1,
-    accessor: 'total_burned',
-  },
-  {
-    title: 'Balance',
-    flex: 1,
-    accessor: 'balance',
+    accessor: 'address',
   },
 ]
-const showModal = $ref<boolean>(false)
+let showModal = $ref<boolean>(false)
+let selectedToken = ref(content[0])
+const selectToken = (value: any) => {
+  selectedToken = value
+  showModal = true
+}
 </script>
 
 <template>
@@ -71,6 +68,7 @@ const showModal = $ref<boolean>(false)
           </div>
           <Table
             :is-hover="true" :items="content" :col-data="colData"
+            @click:modelvalue="selectToken($event)"
           >
             <template #fallback>
               <div italic>
@@ -81,7 +79,63 @@ const showModal = $ref<boolean>(false)
         </div>
       </Suspense>
     </div>
-    <Modal v-if="showModal" type="SUCCESS" @click:close="showModal = $event" />
+    <Modal v-if="showModal" @click:close="showModal = $event">
+      <template #content>
+        <div class="flex justify-start items-center py-8">
+          <div class="w-[20%] flex justify-start items-center">
+            <div class="flex justify-start items-center w-36 h-36 rounded-lg bg-secondary overflow-hidden">
+              <img :src="selectedToken?.logo_url" alt="logo">
+            </div>
+          </div>
+          <div class="w-[75%] text-left">
+            <div class="w-full flex justify-between items-center py-3 gap-4 text-sm text-gray-400">
+              <div class="w-[30%] font-bold">
+                Name
+              </div>
+              <div class="w-[5%]">
+                :
+              </div>
+              <div class="w-[65%] font-light">
+                {{ selectedToken.name }}
+              </div>
+            </div>
+            <div class="w-full flex justify-between items-center py-3 gap-4 text-sm font-bold text-gray-400">
+              <div class="w-[30%] font-bold">
+                Token ID
+              </div>
+              <div class="w-[5%]">
+                :
+              </div>
+              <div class="w-[65%] font-light">
+                {{ selectedToken.token_id }}
+              </div>
+            </div>
+            <div class="w-full flex justify-between items-center py-3 gap-4 text-sm font-bold text-gray-400">
+              <div class="w-[30%] font-bold">
+                Utility
+              </div>
+              <div class="w-[5%]">
+                :
+              </div>
+              <div class="w-[65%] font-light">
+                {{ selectedToken.utility }}
+              </div>
+            </div>
+            <div class="w-full flex justify-between items-center py-3 gap-4 text-sm font-bold text-gray-400">
+              <div class="w-[30%] font-bold">
+                Address
+              </div>
+              <div class="w-[5%]">
+                :
+              </div>
+              <div class="w-[65%] font-light">
+                {{ selectedToken.address }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </NuxtLayout>
 </template>
 

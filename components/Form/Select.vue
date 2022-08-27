@@ -9,8 +9,9 @@ interface ISelectEmit<V = any> {
 }
 const props = defineProps<IFormSelect>()
 const emit = defineEmits<ISelectEmit>()
-const selected = 'Select'
+let selected = $ref('Select')
 const selectItem = (value: any) => {
+  selected = value
   emit('inputModalValue', value)
 }
 </script>
