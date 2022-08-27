@@ -15,7 +15,7 @@ const emit = defineEmits<IModalEmit>()
     :class="$style.modal"
   >
     <div class="bg-secondary opacity-75 w-full h-full absolute top-0 left-0" />
-    <div class="m-auto bg-secondary-100 relative p-20 shadow-modal rounded-[70px]" :class="$style['modal-box']">
+    <div class="m-auto bg-secondary-100 relative p-16 shadow-modal rounded-[70px]" :class="$style['modal-box']">
       <button
         class="btn btn-sm btn-circle btn-ghost absolute right-10 top-10 text-xl text-gray-400 font-black"
         @click="emit('click:close', false)"
@@ -47,7 +47,7 @@ const emit = defineEmits<IModalEmit>()
         </svg>
       </div>
 
-      <div class="w-full text-left text-base text-gray-400 font-bold">
+      <div class="w-full text-left text-lg text-gray-400 font-bold mb-8">
         <slot name="title" />
       </div>
       <slot name="content" />
@@ -97,7 +97,7 @@ const emit = defineEmits<IModalEmit>()
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     width: 91.666667%;
-    max-width: 32rem;
+    max-width: 40rem;
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y))

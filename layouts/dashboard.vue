@@ -3,8 +3,11 @@ const wallet = '0x1Df817D5DFC41482Fe11feD319ad6056b80F9794'
 const user = useUserStore()
 let { selectedItem } = $(storeToRefs(useUserStore()))
 const { currentAddress } = $(storeToRefs(useUserStore()))
+const showRegister = $ref<boolean>(false)
 const router = useRouter()
 const routeLink = (index: number, param: string) => {
+  // if (index === 1)
+  //   showRegister = true
   selectedItem = index
   router.push({ path: param })
 }
@@ -61,6 +64,33 @@ const routeLink = (index: number, param: string) => {
       </div>
     </div>
   </main>
+  <Modal v-if="showRegister" @click:close="showRegister = false">
+    <template #title>
+      Register your organisation
+    </template>
+    <template #content>
+      <div class="flex justify-between items-center py-6 gap-4">
+        <div class="text-sm font-bold text-gray-400">
+          Organisation Name
+        </div>
+        <FormTextInput placeholder="Enter Organisation Name" />
+      </div>
+      <div class="flex justify-between items-center py-6 gap-4">
+        <div class="text-sm font-bold text-gray-400">
+          Upload Logo
+        </div>
+        <FormFileUpload placeholder="Enter Organisation Name" />
+      </div>
+    </template>
+    <template #buttons>
+      <Button class="w-36 gap-2" type="button">
+        <template #content>
+          Register
+          <IconsLogin class="w-6 h-6 p-0 fill-white" />
+        </template>
+      </Button>
+    </template>
+  </Modal>
 </template>
 
 <style lang="postcss" scoped>

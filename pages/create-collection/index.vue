@@ -61,7 +61,7 @@ const colData: ICoulmnData[] = [
             <Button>Create Collection</Button>
           </div>
           <Table
-            :is-hhover="true" :items="content" :col-data="colData"
+            :is-hover="true" :items="content" :col-data="colData"
           >
             <template #fallback>
               <div italic>
