@@ -57,7 +57,7 @@ const showModal = $ref<boolean>(false)
       <Suspense>
         <div class="py-8 px-8">
           <div class="collection-title">
-            <div class="text-gray-400 font-semibold">
+            <div class="text-gray-400 font-bold">
               My Collections
             </div>
             <Button @click="showModal = true">

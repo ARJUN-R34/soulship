@@ -28,7 +28,7 @@ const params = {
       <Suspense>
         <div class="py-8 px-8">
           <div class="collection-title">
-            <div class="text-gray-400 font-semibold">
+            <div class="text-gray-400 font-bold">
               Manage My SBT Collection
             </div>
           </div>
@@ -111,17 +111,17 @@ const params = {
               </BasicCard>
             </div>
             <div v-if="activeTab === tabs[1]">
-              <div class="flex justify-start items-center text-left py-6 px-24 gap-12">
-                <div class="text-sm w-64 font-bold text-gray-400">
+              <div class="w-full flex justify-start items-center text-left py-12 px-24 gap-12">
+                <div class="text-sm w-24 font-bold text-gray-400">
                   Receiver
                 </div>
-                <FormTextInput v-model="params.receiver" placeholder="Enter Receiver" />
+                <FormTextInput v-model="params.receiver" class="w-[50%]" placeholder="Enter Receiver" />
               </div>
               <div class="flex justify-start items-center text-left py-6 px-24 gap-12">
-                <div class="text-sm w-64 font-bold text-gray-400">
+                <div class="text-sm w-24 font-bold text-gray-400">
                   Base URI
                 </div>
-                <FormTextInput v-model="params.baseUri" class="w-[150px]" placeholder="Enter URI" />
+                <FormTextInput v-model="params.baseUri" class="w-[50%]" placeholder="Enter URI" />
               </div>
             </div>
           </div>

@@ -76,7 +76,7 @@ const routeLink = (index: number, param: string) => {
           <div class="text-sm font-bold text-gray-400">
             Upload Logo
           </div>
-          <FormFileUpload placeholder="Enter Organisation Name" />
+          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" />
         </div>
       </template>
       <template #buttons>
