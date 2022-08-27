@@ -1,0 +1,17 @@
+export const chainIds = {
+  1: 'Ethereum',
+  3: 'Ropsten',
+  4: 'Rinkeby',
+  5: 'Goerli',
+  10: 'Optimism',
+  42: 'Kovan',
+  56: 'Binance',
+  137: 'Polygon',
+  250: 'Fantom',
+  2020: 'Ronin',
+  42161: 'Arbitrum One',
+  43114: 'Avalanche',
+  80001: 'Mumbai Polygon',
+  1313161554: 'Aurora',
+  1666600000: 'Harmony',
+}

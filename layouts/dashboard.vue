@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-const wallet = '0x1Df817D5DFC41482Fe11feD319ad6056b80F9794'
-const user = useUserStore()
 let { selectedItem } = $(storeToRefs(useUserStore()))
-const { currentAddress } = $(storeToRefs(useUserStore()))
+const { account, network } = $(storeToRefs(useWeb3Store()))
+const { $reset: web3Logout } = useWeb3Store()
 const showRegister = $ref<boolean>(false)
 const router = useRouter()
 const routeLink = (index: number, param: string) => {
@@ -10,6 +9,10 @@ const routeLink = (index: number, param: string) => {
   //   showRegister = true
   selectedItem = index
   router.push({ path: param })
+}
+const logout = () => {
+  web3Logout()
+  router.push('/')
 }
 </script>
 
@@ -50,11 +53,12 @@ const routeLink = (index: number, param: string) => {
           </div>
           <div class="z-20 px-8 bg-opacity-90 backdrop-blur sticky bottom-4 items-center gap-2 py-4 flex pt-10">
             <div aria-current="page" aria-label="Homepage" class="w-full flex text-center flex-0 hover:cursor-pointer">
-              <Button class="w-full">
+              <Button class="w-full" @click="logout">
                 <template #content>
                   <label class="flex justify-start items-center gap-2 text-xs">
                     <IconsWallet class="w-4 h-4 fill-white" />
-                    {{ currentAddress ? (`${wallet.substring(0, 4)}...${wallet.substring(wallet.length - 4, wallet.length - 1)}`) : 'Connect' }}
+                    {{ `${account.substring(0, 4)}...${account.substring(account.length - 4, account.length - 1)}` }}
+                    {{ network }}
                   </label>
                 </template>
               </Button>
