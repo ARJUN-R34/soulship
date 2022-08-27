@@ -49,6 +49,7 @@ const colData: ICoulmnData[] = [
     accessor: 'balance',
   },
 ]
+const showModal = $ref<boolean>(false)
 </script>
 
 <template>
@@ -60,7 +61,7 @@ const colData: ICoulmnData[] = [
             <div class="text-gray-400 font-semibold">
               My Collections
             </div>
-            <Button>
+            <Button @click="showModal = true">
               <template #content>
                 <label class="flex justify-start items-center gap-2 text-xs">
                   <RiAddFill class="w-4 h-4 fill-white" />
@@ -81,6 +82,7 @@ const colData: ICoulmnData[] = [
         </div>
       </Suspense>
     </div>
+    <Modal type="SUCCESS" :show="showModal" />
   </NuxtLayout>
 </template>
 
