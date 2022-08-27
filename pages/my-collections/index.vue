@@ -60,14 +60,16 @@ const showModal = $ref<boolean>(false)
             <div class="text-gray-400 font-semibold">
               My Collections
             </div>
-            <Button @click="showModal = true">
-              <template #content>
-                <label class="flex justify-start items-center gap-2 text-xs">
-                  <IconsAdd class="w-5 h-5 fill-white" />
-                  Create Collection
-                </label>
-              </template>
-            </Button>
+            <NuxtLink to="/my-collections/view">
+              <Button>
+                <template #content>
+                  <label class="flex justify-start items-center gap-2 text-xs">
+                    <IconsAdd class="w-5 h-5 fill-white" />
+                    Create Collection
+                  </label>
+                </template>
+              </Button>
+            </NuxtLink>
           </div>
           <Table
             :is-hover="true" :items="content" :col-data="colData"

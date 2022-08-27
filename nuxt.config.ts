@@ -2,7 +2,7 @@ import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
   app: {
-    cdnURL: './'
+    cdnURL: './',
   },
   buildModules: [
     ['@nuxtjs/tailwindcss'],
