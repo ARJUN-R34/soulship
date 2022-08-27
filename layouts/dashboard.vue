@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { RiCopperCoinFill, RiFolderAddFill, RiListCheck, RiNotification3Fill, RiWallet3Fill } from 'vue-remix-icons'
 const wallet = '0x1Df817D5DFC41482Fe11feD319ad6056b80F9794'
 const user = useUserStore()
 const router = useRouter()
