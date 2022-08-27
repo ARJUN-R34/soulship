@@ -6,8 +6,6 @@ const { currentAddress } = $(storeToRefs(useUserStore()))
 const showRegister = $ref<boolean>(false)
 const router = useRouter()
 const routeLink = (index: number, param: string) => {
-  // if (index === 1)
-  //   showRegister = true
   selectedItem = index
   router.push({ path: param })
 }
@@ -72,7 +70,7 @@ const routeLink = (index: number, param: string) => {
           <div class="text-sm font-bold text-gray-400">
             Organisation Name
           </div>
-          <FormTextInput placeholder="Enter Organisation Name" />
+          <FormTextInput class="w-72" placeholder="Enter Organisation Name" />
         </div>
         <div class="flex justify-between items-center py-6 gap-4">
           <div class="text-sm font-bold text-gray-400">
@@ -95,7 +93,7 @@ const routeLink = (index: number, param: string) => {
 
 <style lang="postcss" scoped>
 .drawer-item {
-  @apply flex flex-row justify-start items-center px-8 bg-transparent hover:bg-secondary-100 gap-4 py-4;
+  @apply flex flex-row justify-start items-center px-8 bg-transparent cursor-pointer hover:bg-secondary-100 gap-4 py-4;
   @apply font-semibold text-sm;
 }
 .drawer-item-selected {

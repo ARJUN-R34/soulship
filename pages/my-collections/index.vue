@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ICoulmnData } from '~~/utils/interfaces'
+const router = useRouter()
 const content = [{
   name: 'Soulship Org',
   address: '0x9d95e67f1B30610f58Fd6D4588A11f851F2818d9',
@@ -49,6 +50,9 @@ const colData: ICoulmnData[] = [
   },
 ]
 const showModal = $ref<boolean>(false)
+const routeLink = (address: string) => {
+  router.push(`/my-collections/${address}`)
+}
 </script>
 
 <template>
@@ -60,7 +64,7 @@ const showModal = $ref<boolean>(false)
             <div class="text-gray-400 font-semibold">
               My Collections
             </div>
-            <NuxtLink to="/my-collections/view">
+            <NuxtLink to="`/my-collections/$`">
               <Button>
                 <template #content>
                   <label class="flex justify-start items-center gap-2 text-xs">
@@ -73,6 +77,7 @@ const showModal = $ref<boolean>(false)
           </div>
           <Table
             :is-hover="true" :items="content" :col-data="colData"
+            @click:modelvalue="routeLink($event.address)"
           >
             <template #fallback>
               <div italic>

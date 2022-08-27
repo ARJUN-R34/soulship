@@ -29,7 +29,7 @@ interface ITextInputEmits {
 
 <style lang="postcss" scoped>
 .input-bg {
-  @apply w-72 max-w-xs h-12 bg-secondary border-0;
+  @apply max-w-xs h-12 bg-secondary border-0;
   box-shadow: 0px 0px 10px rgba(117, 117, 117, 0.25), inset 0px 0px 5px rgba(206, 206, 206, 0.25);
 }
 </style>

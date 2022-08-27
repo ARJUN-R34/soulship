@@ -6,7 +6,11 @@ interface ITable {
   items: any[]
   isHover: boolean
 }
+interface IMyCollectionEmit<V = any> {
+  (e: 'click:modelvalue', value: V): void
+}
 defineProps<ITable>()
+const emit = defineEmits<IMyCollectionEmit>()
 </script>
 
 <template>
@@ -22,7 +26,7 @@ defineProps<ITable>()
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, idx) in items" :key="idx" :class="isHover ? 'hover' : ''">
+        <tr v-for="(item, idx) in items" :key="idx" :class="isHover ? 'hover' : ''" @click="emit('click:modelvalue', item)">
           <th v-for="(col, id) in colData" :key="id" :class="isHover ? 'table-tr-item' : ''" class="bg-secondary-100 text-gray-400 font-light text-sm" :style="{ flex: col.flex }">
             <div v-if="id === 0" class="table-tr-item">
               {{ idx + 1 }}
