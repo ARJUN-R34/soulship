@@ -1,5 +1,5 @@
 import { Web3Storage } from 'web3.storage'
-import type { Filelike } from 'web3.storage/dist/src/lib/interface'
+import type { CIDString, Filelike } from 'web3.storage/dist/src/lib/interface'
 import { hash } from 'ohash'
 function getAccessToken() {
   // If you're just testing, you can paste in a token
@@ -21,6 +21,14 @@ export const useStoreFile = async (file: Iterable<Filelike>) => {
   const cid = await client.put(file)
   console.log('stored files with cid:', cid)
   return cid
+}
+export async function useRetrieveFiles(cid: CIDString) {
+  const client = makeStorageClient()
+  const res = await client.get(cid)
+  console.log(`Got a response! [${res!.status}] ${res!.statusText}`)
+  if (!res!.ok)
+    throw new Error(`failed to get ${cid}`)
+  // request succeeded! do something with the response object here...
 }
 
 export function useMakeFileObject(obj: any) {
