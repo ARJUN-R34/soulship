@@ -7,6 +7,8 @@ useHead({
     },
   ],
 })
+const supabase = useSupabaseClient()
+console.log('🚀 ~ file: app.vue ~ line 11 ~ supabase', supabase)
 </script>
 
 <template>
