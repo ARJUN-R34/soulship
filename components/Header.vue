@@ -6,6 +6,7 @@ interface IHeader {
   position?: 'sticky' | 'fixed'
 }
 defineProps<IHeader>()
+const showRegister = $ref<boolean>(false)
 </script>
 
 <template>
@@ -20,7 +21,7 @@ defineProps<IHeader>()
     </Button>
     <!-- <a class="btn btn-ghost normal-case text-xl">Soulship</a> -->
   </div>
-  <Modal>
+  <Modal v-if="showRegister">
     <template #title>
       Register your organisation
     </template>
@@ -29,6 +30,7 @@ defineProps<IHeader>()
         <div class="text-sm font-cold text-gray-400">
           Organisation Name
         </div>
+        <FormTextInput placeholder="Enter Organisation Name" />
       </div>
     </template>
   </Modal>

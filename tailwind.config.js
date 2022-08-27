@@ -8,13 +8,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        '3xl': '0px 0px 10px rgba(117, 117, 117, 0.25)',
+      },
       backgroundImage: {
         'home-bg': 'url(assets/images/backgrounds/home_bg.svg)',
       },
       boxShadow: {
         'navigation': '3px 6px 8px rgba(0, 0, 0, 0.25)',
         '3xl': '0px 0px 14px rgba(0, 0, 0, 0.25)',
-
       },
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],

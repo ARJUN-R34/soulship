@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RiAddFill } from 'vue-remix-icons'
 import type { ICoulmnData } from '~~/utils/interfaces'
 const content = [{
   name: 'Soulship Org',
@@ -64,7 +63,7 @@ const showModal = $ref<boolean>(false)
             <Button @click="showModal = true">
               <template #content>
                 <label class="flex justify-start items-center gap-2 text-xs">
-                  <RiAddFill class="w-4 h-4 fill-white" />
+                  <IconsAdd class="w-4 h-4 fill-white" />
                   Create Collection
                 </label>
               </template>
