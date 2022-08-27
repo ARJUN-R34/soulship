@@ -10,7 +10,13 @@
   },
   "dependencies": {
     "daisyui": "^2.24.0",
-    "lodash": "^4.17.21"
+    "ethers": "^5.7.0",
+    "lodash": "^4.17.21",
+    "lodash.clonedeep": "^4.5.0",
+    "ohash": "^0.1.5",
+    "pinia-plugin-persistedstate": "^2.1.1",
+    "radash": "^7.0.0",
+    "web3.storage": "^4.4.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.26.1",
@@ -18,6 +24,8 @@
     "@nuxtjs/tailwindcss": "^5.3.2",
     "@pinia/nuxt": "^0.4.1",
     "@tailwindcss/line-clamp": "^0.4.0",
+    "@types/lodash": "^4.14.184",
+    "@types/lodash.clonedeep": "^4.5.7",
     "@vueuse/nuxt": "^9.1.1",
     "autoprefixer": "^10.4.8",
     "eslint": "^8.22.0",

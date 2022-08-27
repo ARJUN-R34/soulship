@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     cdnURL: './',
   },
   buildModules: [
-    ['@nuxtjs/tailwindcss'],
+    '@nuxtjs/tailwindcss',
   ],
   modules: [
     ['@pinia/nuxt', {
@@ -13,6 +13,7 @@ export default defineNuxtConfig({
         // automatically imports `usePinia()`
         'defineStore',
         'storeToRefs',
+        'acceptHMRUpdate',
         // automatically imports `usePinia()` as `usePiniaStore()`
         ['defineStore', 'definePiniaStore'],
       ],

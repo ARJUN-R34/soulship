@@ -1,4 +1,12 @@
 <script setup lang="ts">
+const { connectWallet } = useWeb3Store()
+const { account } = $(storeToRefs(useWeb3Store()))
+const router = useRouter()
+const login = async () => {
+  await connectWallet()
+  if (account !== '')
+    router.push({ path: '/my-collections' })
+}
 </script>
 
 <template>
@@ -8,12 +16,9 @@
   <div class="w-[70%] text-2xl text-gray-50 py-2 font-medium font-alegreya tracking-wide m-auto">
     A one stop destination for the web3 users to create, deploy and manage Soulbound Tokens
   </div>
-
-  <NuxtLink href="/my-collections">
-    <Button class="my-4">
-      <template #content>
-        Launch Dapp
-      </template>
-    </Button>
-  </NuxtLink>
+  <Button class="my-4" @click="login">
+    <template #content>
+      Launch Dapp
+    </template>
+  </Button>
 </template>
