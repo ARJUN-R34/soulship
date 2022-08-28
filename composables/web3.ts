@@ -36,7 +36,6 @@ export const useWeb3Store = defineStore('web3', () => {
         const provider = new ethers.providers.Web3Provider(ethereum)
         const signer = provider.getSigner()
         const contract = new ethers.Contract(contractAddress, contractABI, signer)
-        console.log('🚀 ~ file: web3.ts ~ line 39 ~ getContract ~ contract.value', contract)
         return contract
       }
     }
@@ -62,7 +61,7 @@ export const useWeb3Store = defineStore('web3', () => {
     try {
       const Contract = await getContract()
       console.log('🚀 ~ file: web3.ts ~ line 63 ~ getOrgDetails ~ Contract', Contract)
-      const currentValue = await Contract?.getOrgDetails(account)
+      const currentValue = await Contract!.getOrgDetails(orgAddress)
       console.log('🚀 ~ file: web3.ts ~ line 65 ~ getOrgDetails ~ currentValue', currentValue)
     }
     catch (error) {
@@ -84,10 +83,11 @@ export const useWeb3Store = defineStore('web3', () => {
     try {
       const Contract = await getContract()
       const createReceipt = await Contract?.registration(orgName, logoUri).reset()
-      console.log('🚀 ~ file: web3.ts ~ line 86 ~ registration ~ createReceipt', createReceipt)
       await createReceipt.wait()
+      return createReceipt
     }
     catch (error) {
+
     }
   }
   return {

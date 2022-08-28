@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 let { selectedItem } = $(storeToRefs(useUserStore()))
+const { modalType, modalMessage, showModal } = $(storeToRefs(useUserStore()))
 const showRegister = $ref<boolean>(false)
 const router = useRouter()
 const { registration } = useWeb3Store()
@@ -71,7 +72,7 @@ const register = async () => {
         </div>
       </div>
     </div>
-    <Modal v-if="!showRegister" @click:close="showRegister = false">
+    <Modal v-if="showRegister" @click:close="showRegister = false">
       <template #title>
         Register your organisation
       </template>
@@ -96,6 +97,11 @@ const register = async () => {
             <IconsLogin class="w-6 h-6 p-0 fill-white" />
           </template>
         </Button>
+      </template>
+    </Modal>
+    <Modal v-if="showModal" :type="modalType">
+      <template #content>
+        {{ modalMessage }}
       </template>
     </Modal>
   </main>
