@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { map, select } from 'radash'
+
+const { account } = $(storeToRefs(useWeb3Store()))
 const data = [
   'Recent',
   'Waiting for Response',
@@ -6,6 +9,35 @@ const data = [
   'Approved',
   'Rejected',
 ]
+const client = useSupabaseClient()
+// Status : 1:pending,0:rejected,2:approved
+const getRequestData = async (account: string) => {
+  const { data: organizationRequests, error: organizationRequestError } = await useAsyncData('requests', async () => {
+    const { data } = await client.from('requests').select('*').eq('organization_address', account)
+    return data
+  })
+  const { data: waitingRes, error: waitingRequestError } = await useAsyncData('requests', async () => {
+    const { data } = await client.from('requests').select('*').eq('receiver', account).eq('status', 1)
+    return data
+  })
+  const pendingRequests = select<any, any>(organizationRequests.value, req => req, req => req.status === 1)
+  const rejectedRequests = select<any, any>(organizationRequests.value, req => req, req => req.status === 0)
+  const approvedRequests = select<any, any>(organizationRequests.value, req => req, req => req.status === 2)
+  const waitingRequests = await map(waitingRes.value, (request) => {
+    request.status = 3
+    return request
+  })
+}
+const processRequest = async (status: number, contract_address: string) => {
+  const { data: res, error } = await useAsyncData('requests', async () => {
+    const { data } = await client.from('requests')
+      .update({ status }).eq('contract_address', contract_address).eq('receiver', account)
+    return data
+  })
+}
+onMounted(() => {
+  getRequestData(account)
+})
 </script>
 
 <template>
