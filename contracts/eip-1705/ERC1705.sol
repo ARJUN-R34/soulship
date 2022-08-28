@@ -5,11 +5,11 @@ pragma solidity ^0.8.0;
 
 import "./IERC1705.sol";
 import "./IERC1705Receiver.sol";
-import "./extensions/IERC1705Metadata.sol";
-import "../utils/Address.sol";
-import "../utils/Context.sol";
-import "../utils/Strings.sol";
-import "../utils/introspection/ERC165.sol";
+import "./metadata/IERC1705Metadata.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /**
  * @dev Proposed ERC1705 (SBT) token contract.
@@ -35,9 +35,6 @@ contract ERC1705 is Context, ERC165, IERC1705, IERC1705Metadata {
 
     // Mapping from owner to operator approvals
     mapping(address => mapping(address => bool)) private _operatorApprovals;
-
-    // Mapping to check if the contract is whitelisted for the user
-    mapping(address => mapping(address => bool)) private _approvedContract;
 
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
@@ -130,9 +127,7 @@ contract ERC1705 is Context, ERC165, IERC1705, IERC1705Metadata {
      * Emits a {Transfer} event.
      */
     function _safeMint(address to, uint256 tokenId, bytes memory signature) internal virtual {
-        if (_approvedContract[msg.sender][address(this)] === false) {
-            require(signature.length > 0, "ERC1705: Signature required. Not a whitelisted contract")
-        }
+        require(signature.length > 0, "ERC1705: Signature required. Not a whitelisted contract");
 
         _safeMint(to, tokenId, "", signature);
     }
@@ -145,12 +140,9 @@ contract ERC1705 is Context, ERC165, IERC1705, IERC1705Metadata {
         address to,
         uint256 tokenId,
         bytes memory data,
-        bytes memory signature,
-        bool isTemporary,
+        bytes memory signature
     ) internal virtual {
-        if (_approvedContract[msg.sender][address(this)] === false) {
-            require(signature.length > 0, "ERC1705: Signature required. Not a whitelisted contract")
-        }
+        require(signature.length > 0, "ERC1705: Signature required. Not a whitelisted contract");
 
         _mint(to, tokenId, signature);
         require(
@@ -175,9 +167,7 @@ contract ERC1705 is Context, ERC165, IERC1705, IERC1705Metadata {
         require(to != address(0), "ERC1705: mint to the zero address");
         require(!_exists(tokenId), "ERC1705: token already minted");
 
-        if (_approvedContract[msg.sender][address(this)] === false) {
-            require(signature.length > 0, "ERC1705: Signature required. Not a whitelisted contract")
-        }
+        require(signature.length > 0, "ERC1705: Signature required. Not a whitelisted contract");
 
         _beforeTokenTransfer(address(0), to, tokenId);
 
