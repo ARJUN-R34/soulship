@@ -8,7 +8,7 @@ export const domain = {
   name: 'SoulShip', // (replaced from original value)
   version: '1',
   chainId: 80001, // (replaced from original value)
-  verifyingContract: '0xd093dD097772300939Ec1ED7482B415bd43D9246',
+  verifyingContract: '0x2A8385c6E0529Fd91D9B320756F797DdF402c8aF',
 }
 
 export const messageType = [
