@@ -1,24 +1,10 @@
 <script lang="ts" setup>
 let { selectedItem } = $(storeToRefs(useUserStore()))
 const { modalType, modalMessage, showModal } = $(storeToRefs(useUserStore()))
-const showRegister = $ref<boolean>(false)
 const router = useRouter()
-const { registration } = useWeb3Store()
 const routeLink = (index: number, param: string) => {
   selectedItem = index
   router.push({ path: param })
-}
-const regParams = reactive({
-  orgName: '',
-  logo: null,
-})
-const register = async () => {
-  let imgCid
-  if (regParams.logo)
-    imgCid = await useStoreFile(regParams.logo)
-  console.log('🚀 ~ file: dashboard.vue ~ line 17 ~ register ~ imgCid', imgCid)
-  // https://${imgCid}.ipfs.w3s.link/logo.png
-  const result = await registration(regParams.orgName, `https://${imgCid}.ipfs.w3s.link/logo.png`)
 }
 </script>
 
@@ -75,33 +61,6 @@ const register = async () => {
         </div>
       </div>
     </div>
-    <Modal v-if="!showRegister" @click:close="showRegister = false">
-      <template #title>
-        Register your organisation
-      </template>
-      <template #content>
-        <div class="flex justify-between items-center py-6 gap-4">
-          <div class="text-sm font-bold text-gray-400">
-            Organisation Name
-          </div>
-          <FormTextInput v-model="regParams.orgName" class="w-72" placeholder="Enter Organisation Name" />
-        </div>
-        <div class="flex justify-between items-center py-6 gap-4">
-          <div class="text-sm font-bold text-gray-400">
-            Upload Logo
-          </div>
-          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logo = $event" />
-        </div>
-      </template>
-      <template #buttons>
-        <Button class="w-36 gap-2" type="button" @click="register">
-          <template #content>
-            Register
-            <IconsLogin class="w-6 h-6 p-0 fill-white" />
-          </template>
-        </Button>
-      </template>
-    </Modal>
     <Modal v-if="showModal" :type="modalType">
       <template #content>
         {{ modalMessage }}

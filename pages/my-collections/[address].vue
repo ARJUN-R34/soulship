@@ -3,6 +3,7 @@ import _ from 'lodash'
 defineProps<IView>()
 const { account, organization_name } = $(storeToRefs(useWeb3Store()))
 const client = useSupabaseClient()
+const route = useRoute()
 interface IView {
   tokenData: any
 }
@@ -35,6 +36,10 @@ const mint_request = async () => {
     return data
   })
 }
+onMounted(async () => {
+  const address = route.params.address
+  // currentCollectionList = await getOrgCollection(address)
+})
 </script>
 
 <template>

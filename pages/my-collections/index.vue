@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { flat, map } from 'radash'
 import type { ICoulmnData } from '~~/utils/interfaces'
+const { getOrgCollection } = useWeb3Store()
+const { account } = $(storeToRefs(useWeb3Store()))
 
+const route = useRoute()
 const router = useRouter()
 const content = [{
   name: 'Soulship Org',
@@ -26,34 +29,42 @@ const colData: ICoulmnData[] = [
     accessor: 'name',
   },
   {
+    title: 'Symbol',
+    flex: 1,
+    accessor: 'symbol',
+  },
+  {
     title: 'Address',
     flex: 1,
-    accessor: 'address',
+    accessor: 'contractAddress',
   },
   {
     title: 'Utility',
     flex: 1,
     accessor: 'utility',
   },
-  {
-    title: 'Total Minted',
-    flex: 1,
-    accessor: 'total_minted',
-  },
-  {
-    title: 'Total Burned',
-    flex: 1,
-    accessor: 'total_burned',
-  },
-  {
-    title: 'Balance',
-    flex: 1,
-    accessor: 'balance',
-  },
+  // {
+  //   title: 'Total Minted',
+  //   flex: 1,
+  //   accessor: 'total_minted',
+  // },
+  // {
+  //   title: 'Total Burned',
+  //   flex: 1,
+  //   accessor: 'total_burned',
+  // },
 ]
+let currentAddress = $ref('')
+let currentCollectionList: any[] | undefined = []
 const routeLink = (address: string) => {
+  currentAddress = address
   router.push(`/my-collections/${address}`)
 }
+onMounted(async () => {
+  console.log('🚀 ~ file: index.vue ~ line 65 ~ onMounted ~ account', account)
+  currentCollectionList = await getOrgCollection(account)
+  console.log('🚀 ~ file: index.vue ~ line 64 ~ onMounted ~ currentCollectionList', currentCollectionList)
+})
 </script>
 
 <template>
