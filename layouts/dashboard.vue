@@ -2,6 +2,7 @@
 let { selectedItem } = $(storeToRefs(useUserStore()))
 const showRegister = $ref<boolean>(false)
 const router = useRouter()
+const { registration } = useWeb3Store()
 const routeLink = (index: number, param: string) => {
   selectedItem = index
   router.push({ path: param })
@@ -10,6 +11,11 @@ const regParams = reactive({
   orgName: '',
   logoUri: '',
 })
+const register = async () => {
+  // async function registration(regParams.orgName, regParams.logoUri) {
+  const result = await registration(regParams.orgName, regParams.logoUri)
+  console.log('🚀 ~ file: dashboard.vue ~ line 17 ~ registration ~ result', result)
+}
 </script>
 
 <template>
@@ -65,7 +71,7 @@ const regParams = reactive({
         </div>
       </div>
     </div>
-    <Modal v-if="showRegister" @click:close="showRegister = false">
+    <Modal v-if="!showRegister" @click:close="showRegister = false">
       <template #title>
         Register your organisation
       </template>
@@ -84,7 +90,7 @@ const regParams = reactive({
         </div>
       </template>
       <template #buttons>
-        <Button class="w-36 gap-2" type="button">
+        <Button class="w-36 gap-2" type="button" @click="register">
           <template #content>
             Register
             <IconsLogin class="w-6 h-6 p-0 fill-white" />

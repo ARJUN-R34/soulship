@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { CIDString } from 'web3.storage'
 import type { ICoulmnData } from '~~/utils/interfaces'
+const { getOrgDetails } = useWeb3Store()
+const { account } = $(storeToRefs(useWeb3Store()))
 
 const content = [{
   name: 'Soulship Org',
@@ -35,6 +37,10 @@ const deploy = async () => {
     imgCid = await useStoreFile(params.logo)
 // https://${imgCid}.ipfs.w3s.link/logo.png
 }
+onBeforeMount(async () => {
+  const result = await getOrgDetails(account)
+  console.log('🚀 ~ file: index.vue ~ line 42 ~ onBeforeMount ~ result', result)
+})
 </script>
 
 <template>
