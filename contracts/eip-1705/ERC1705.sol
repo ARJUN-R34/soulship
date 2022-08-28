@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 
 import "./IERC1705.sol";
 import "./IERC1705Receiver.sol";
-import "./IERC1705Metadata.sol";
+import "./metadata/IERC1705Metadata.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
