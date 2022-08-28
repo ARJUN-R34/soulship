@@ -90,6 +90,7 @@ export const useWeb3Store = defineStore('web3', () => {
       getAccount()
       const Contract = await getContract() as unknown as ethers.Contract
       const currentValue = await Contract.getAllContracts()
+      console.log('🚀 ~ file: web3.ts ~ line 106 ~ getAllContracts ~ currentValue', currentValue)
       return currentValue
     }
     catch (error) {
@@ -97,6 +98,11 @@ export const useWeb3Store = defineStore('web3', () => {
   }
   async function CreateNewChild(name: string, symbol: string, utility: string, uri: string) {
     try {
+      getAccount()
+      const Contract = await getContract() as unknown as ethers.Contract
+      const createReceipt = await Contract?.CreateNewChild(name, symbol, utility, uri).reset()
+      await createReceipt.wait()
+      return createReceipt
     }
     catch (error) {
     }
@@ -113,6 +119,27 @@ export const useWeb3Store = defineStore('web3', () => {
 
     }
   }
+  async function getOrgCollection(orgAddress: string) {
+    try {
+      getAccount()
+      console.log('🚀 ~ file: web3.ts ~ line 136 ~ getOrgCollection ~ orgAddress', orgAddress)
+      const Contract = await getContract() as unknown as ethers.Contract
+      console.log('🚀 ~ file: web3.ts ~ line 139 ~ getOrgCollection ~ Contract', Contract)
+      const count = await Contract.numberOfCollections(orgAddress)
+      // console.log('🚀 ~ file: web3.ts ~ line 140 ~ getOrgCollection ~ count', count)
+      const collections = []
+      for (let index = 0; index < 2; index++) {
+        const currentCollection = await Contract.getContractData(index)
+        console.log('🚀 ~ file: web3.ts ~ line 143 ~ getOrgCollection ~ currentCollection', currentCollection)
+        if (currentCollection.organizationAddress.toUpperCase() === orgAddress.toUpperCase())
+          collections.push(currentCollection)
+      }
+      console.log('🚀 ~ file: web3.ts ~ line 141 ~ getOrgCollection ~ collections', collections)
+      return collections
+    }
+    catch (error) {
+    }
+  }
   return {
     connectWallet,
     account,
@@ -125,6 +152,7 @@ export const useWeb3Store = defineStore('web3', () => {
     CreateNewChild,
     registration,
     getContract,
+    getOrgCollection,
   }
 })
 

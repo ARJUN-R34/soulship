@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { CIDString } from 'web3.storage'
 import type { ICoulmnData } from '~~/utils/interfaces'
-const { getOrgDetails } = useWeb3Store()
+const { getOrgDetails, registration, CreateNewChild, getAllContracts } = useWeb3Store()
 const router = useRouter()
 const { account } = $(storeToRefs(useWeb3Store()))
+let showRegister = $ref<boolean>(false)
 
 const content = [{
   name: 'Soulship Org',
@@ -23,7 +24,12 @@ const content = [{
 }]
 const params = reactive({
   name: '',
+  symbol: '',
   utility: '',
+  logo: null,
+})
+const regParams = reactive({
+  orgName: '',
   logo: null,
 })
 const UTILITIES = [
@@ -37,13 +43,23 @@ const deploy = async () => {
   if (params.logo)
     imgCid = await useStoreFile(params.logo)
   // https://${imgCid}.ipfs.w3s.link/logo.png
+  const result = await CreateNewChild(params.name, params.symbol, params.utility, `https://${imgCid}.ipfs.w3s.link/logo.png`)
+  console.log('🚀 ~ file: index.vue ~ line 47 ~ deploy ~ result', result)
+}
+const register = async () => {
+  let imgCid
+  if (regParams.logo)
+    imgCid = await useStoreFile(regParams.logo)
+  // console.log('🚀 ~ file: dashboard.vue ~ line 17 ~ register ~ imgCid', imgCid)
+  // https://${imgCid}.ipfs.w3s.link/logo.png
+  const result = await registration(regParams.orgName, `https://${imgCid}.ipfs.w3s.link/logo.png`)
 }
 onMounted(async () => {
   const result = await getOrgDetails(account)
-  console.log('🚀 ~ file: index.vue ~ line 43 ~ onMounted ~ account', result?.organizationAddress)
-  if (result && result?.organizationAddress !== account)
-    router.back()
-  console.log('🚀 ~ file: index.vue ~ line 42 ~ onBeforeMount ~ result', result)
+  const result1 = await getAllContracts()
+  console.log('🚀 ~ file: index.vue ~ line 60 ~ onMounted ~ result1', result1)
+  if (result && (result?.organizationAddress.toUpperCase() !== account.toUpperCase()))
+    showRegister = true
 })
 </script>
 
@@ -63,6 +79,12 @@ onMounted(async () => {
                 Collection Name
               </div>
               <FormTextInput v-model="params.name" class="w-[50%]" placeholder="Enter Name" />
+            </div>
+            <div class="w-full flex justify-center items-center text-left py-6 px-16 gap-12">
+              <div class="text-sm w-36 font-bold text-gray-400">
+                Symbol
+              </div>
+              <FormTextInput v-model="params.symbol" class="w-[50%]" placeholder="Enter Name" />
             </div>
             <div class="flex justify-center items-center text-left py-6 px-16 gap-12">
               <div class="text-sm w-36 font-bold text-gray-400">
@@ -87,6 +109,33 @@ onMounted(async () => {
               </Button>
             </div>
           </div>
+          <Modal v-if="showRegister" @click:close="showRegister = false">
+            <template #title>
+              Register your organisation
+            </template>
+            <template #content>
+              <div class="flex justify-between items-center py-6 gap-4">
+                <div class="text-sm font-bold text-gray-400">
+                  Organisation Name
+                </div>
+                <FormTextInput v-model="regParams.orgName" class="w-72" placeholder="Enter Organisation Name" />
+              </div>
+              <div class="flex justify-between items-center py-6 gap-4">
+                <div class="text-sm font-bold text-gray-400">
+                  Upload Logo
+                </div>
+                <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logo = $event" />
+              </div>
+            </template>
+            <template #buttons>
+              <Button class="w-36 gap-2" type="button" @click="register">
+                <template #content>
+                  Register
+                  <IconsLogin class="w-6 h-6 p-0 fill-white" />
+                </template>
+              </Button>
+            </template>
+          </Modal>
         </main>
       </Suspense>
     </div>

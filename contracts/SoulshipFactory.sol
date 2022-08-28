@@ -11,6 +11,7 @@ contract SoulshipFactory {
         string utility;
         string uri;
         string name;
+        string symbol;
     }
 
     struct Organizations {
@@ -22,7 +23,7 @@ contract SoulshipFactory {
     address[] contractAddresses;
 
     mapping (uint256 => DeployedContracts) public getContractData;
-
+    
     mapping (address => uint256) public numberOfCollections;
 
     mapping(address => Organizations) getOrgData;
@@ -57,7 +58,8 @@ contract SoulshipFactory {
             organizationAddress: msg.sender,
             utility: utility,
             uri: uri,
-            name: name
+            name: name,
+            symbol: symbol
         });
 
         numberOfCollections[msg.sender] = collections + 1;
