@@ -40,7 +40,8 @@ export const useWeb3Store = defineStore('web3', () => {
       const myAccounts = await ethereum.request({ method: 'eth_requestAccounts' })
       account.value = myAccounts[0]
       const provider = new ethers.providers.Web3Provider(ethereum)
-      const contract = new ethers.Contract(contractAddress, contractABI, provider)
+      const signer = provider.getSigner()
+      const contract = new ethers.Contract(contractAddress, contractABI, signer)
       return contract
     }
   }
@@ -89,16 +90,20 @@ export const useWeb3Store = defineStore('web3', () => {
   }
   async function getOrgDetails(orgAddress: string) {
     try {
+      getAccount()
       const Contract = await getContract() as unknown as ethers.Contract
-      console.log('🚀 ~ file: web3.ts ~ line 63 ~ getOrgDetails ~ Contract', Contract)
       const currentValue = await Contract.getOrgDetails(orgAddress)
-      console.log('🚀 ~ file: web3.ts ~ line 65 ~ getOrgDetails ~ currentValue', currentValue)
+      return currentValue
     }
     catch (error) {
     }
   }
   async function getAllContracts() {
     try {
+      getAccount()
+      const Contract = await getContract() as unknown as ethers.Contract
+      const currentValue = await Contract.getAllContracts()
+      return currentValue
     }
     catch (error) {
     }
@@ -109,9 +114,10 @@ export const useWeb3Store = defineStore('web3', () => {
     catch (error) {
     }
   }
-  async function registration(orgName: string, logoUri: string) {
+  async function registration(orgName: string, logoUri: string | null) {
     try {
-      const Contract = await getContract()
+      getAccount()
+      const Contract = await getContract() as unknown as ethers.Contract
       const createReceipt = await Contract?.registration(orgName, logoUri).reset()
       await createReceipt.wait()
       return createReceipt
