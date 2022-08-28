@@ -37,7 +37,7 @@ const deploy = async () => {
     imgCid = await useStoreFile(params.logo)
 // https://${imgCid}.ipfs.w3s.link/logo.png
 }
-onBeforeMount(async () => {
+onMounted(async () => {
   const result = await getOrgDetails(account)
   console.log('🚀 ~ file: index.vue ~ line 42 ~ onBeforeMount ~ result', result)
 })

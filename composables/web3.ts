@@ -35,19 +35,13 @@ export const useWeb3Store = defineStore('web3', () => {
     }
   }
   async function getContract() {
-    try {
-      const { ethereum } = window
-      if (ethereum) {
-        const myAccounts = await ethereum.request({ method: 'eth_requestAccounts' })
-        account.value = myAccounts[0]
-        const provider = new ethers.providers.Web3Provider(ethereum)
-        const signer = provider.getSigner()
-        const contract = new ethers.Contract(contractAddress, contractABI, signer)
-        return contract
-      }
-    }
-    catch (e) {
-      console.log('🚀 ~ file: web3.ts ~ line 21 ~ getBalance ~ e', e)
+    const { ethereum } = window
+    if (ethereum) {
+      const myAccounts = await ethereum.request({ method: 'eth_requestAccounts' })
+      account.value = myAccounts[0]
+      const provider = new ethers.providers.Web3Provider(ethereum)
+      const contract = new ethers.Contract(contractAddress, contractABI, provider)
+      return contract
     }
   }
 
@@ -95,9 +89,9 @@ export const useWeb3Store = defineStore('web3', () => {
   }
   async function getOrgDetails(orgAddress: string) {
     try {
-      const Contract = await getContract()
+      const Contract = await getContract() as unknown as ethers.Contract
       console.log('🚀 ~ file: web3.ts ~ line 63 ~ getOrgDetails ~ Contract', Contract)
-      const currentValue = await Contract!.getOrgDetails(orgAddress)
+      const currentValue = await Contract.getOrgDetails(orgAddress)
       console.log('🚀 ~ file: web3.ts ~ line 65 ~ getOrgDetails ~ currentValue', currentValue)
     }
     catch (error) {
