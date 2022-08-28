@@ -1,15 +1,25 @@
 <script lang="ts" setup>
 let { selectedItem } = $(storeToRefs(useUserStore()))
+const { modalType, modalMessage, showModal } = $(storeToRefs(useUserStore()))
 const showRegister = $ref<boolean>(false)
 const router = useRouter()
+const { registration } = useWeb3Store()
 const routeLink = (index: number, param: string) => {
   selectedItem = index
   router.push({ path: param })
 }
 const regParams = reactive({
   orgName: '',
-  logoUri: '',
+  logo: null,
 })
+const register = async () => {
+  let imgCid
+  if (regParams.logo)
+    imgCid = await useStoreFile(regParams.logo)
+  console.log('🚀 ~ file: dashboard.vue ~ line 17 ~ register ~ imgCid', imgCid)
+  // https://${imgCid}.ipfs.w3s.link/logo.png
+  const result = await registration(regParams.orgName, `https://${imgCid}.ipfs.w3s.link/logo.png`)
+}
 </script>
 
 <template>
@@ -65,7 +75,7 @@ const regParams = reactive({
         </div>
       </div>
     </div>
-    <Modal v-if="showRegister" @click:close="showRegister = false">
+    <Modal v-if="!showRegister" @click:close="showRegister = false">
       <template #title>
         Register your organisation
       </template>
@@ -80,16 +90,21 @@ const regParams = reactive({
           <div class="text-sm font-bold text-gray-400">
             Upload Logo
           </div>
-          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logoUri = $event" />
+          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logo = $event" />
         </div>
       </template>
       <template #buttons>
-        <Button class="w-36 gap-2" type="button">
+        <Button class="w-36 gap-2" type="button" @click="register">
           <template #content>
             Register
             <IconsLogin class="w-6 h-6 p-0 fill-white" />
           </template>
         </Button>
+      </template>
+    </Modal>
+    <Modal v-if="showModal" :type="modalType">
+      <template #content>
+        {{ modalMessage }}
       </template>
     </Modal>
   </main>

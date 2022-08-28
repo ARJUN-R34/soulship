@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { connectWallet } = useWeb3Store()
+const { connectWallet, getContract } = useWeb3Store()
 const { account } = $(storeToRefs(useWeb3Store()))
 const router = useRouter()
 const login = async () => {
