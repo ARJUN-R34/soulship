@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import _ from 'lodash'
 defineProps<IView>()
+const { account, organization_name } = $(storeToRefs(useWeb3Store()))
+const client = useSupabaseClient()
 interface IView {
   tokenData: any
 }
-const tokenData = {
+const tokenData = reactive({
   name: 'Soulship Org',
   address: '0x9d95e67f1B30610f58Fd6D4588A11f851F2818d9',
   utility: 'Gaming',
@@ -12,13 +14,27 @@ const tokenData = {
   total_burned: 8,
   balance: 2,
   logo_url: 'https://avatars.githubusercontent.com/u/38809367?s=280&v=4s',
-}
+})
 const tabs = ['Overview', 'Mint']
 const showModal = $ref<boolean>(false)
 const activeTab = ref('Overview')
-const params = {
+const params = reactive({
   receiver: '',
   baseUri: '',
+})
+const mint_request = async () => {
+  const newRequest = {
+    organization_name,
+    organization_address: account,
+    token_uri: params.baseUri,
+    contract_address: tokenData.address,
+    receiver: params.receiver,
+  }
+  const { data: res, error } = await useAsyncData('requests', async () => {
+    const { data } = await client.from('requests').insert(newRequest)
+    return data
+  })
+  console.log('🚀 ~ file: [address].vue ~ res', res.value)
 }
 </script>
 
@@ -122,6 +138,15 @@ const params = {
                   Base URI
                 </div>
                 <FormTextInput v-model="params.baseUri" class="w-[50%]" placeholder="Enter URI" />
+              </div>
+              <div class="flex justify-end px-16">
+                <Button class="mt-12 mr-36 2xl:mr-48" @click="mint_request">
+                  <template #content>
+                    <label class="w-36 text-center gap-2 text-xs">
+                      Create Mint Request
+                    </label>
+                  </template>
+                </Button>
               </div>
             </div>
           </div>

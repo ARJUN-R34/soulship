@@ -4,7 +4,6 @@ export const useUserStore = defineStore('user', () => {
   /**
    * Current named of the user.
    */
-  const currentAddress = ref('')
   const selectedItem = ref(0)
   // const previousNames = ref(new Set<string>())
 
@@ -25,7 +24,6 @@ export const useUserStore = defineStore('user', () => {
   // }
 
   return {
-    currentAddress,
     selectedItem,
   }
 })

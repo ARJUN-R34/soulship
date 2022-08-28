@@ -8,7 +8,7 @@ import { chainIds } from '~~/repository/ChainIds'
 export const useWeb3Store = defineStore('web3', () => {
   const account = ref('')
   const network = ref('')
-
+  const organization_name = ref('sample_org')
   async function getAccount() {
     try {
       const { ethereum } = window
@@ -41,6 +41,7 @@ export const useWeb3Store = defineStore('web3', () => {
   return {
     connectWallet,
     account,
+    organization_name,
     network,
     getAccount,
   }

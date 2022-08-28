@@ -30,12 +30,11 @@ const UTILITIES = [
   'Entertainment',
 ]
 const deploy = async () => {
-  console.log(params.logo)
-  let imgCid: CIDString
+  let imgCid
   if (params.logo)
     imgCid = await useStoreFile(params.logo)
-  const result = await useRetrieveFiles(imgCid)
-  console.log('🚀 ~ file: index.vue ~ line 70 ~ deploy ~ result', result)
+  console.log('🚀 ~ file: index.vue ~ line 35 ~ deploy ~ imgCid', imgCid)
+// https://${imgCid}.ipfs.w3s.link/logo.png
 }
 </script>
 

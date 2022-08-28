@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { flat, map } from 'radash'
 import type { ICoulmnData } from '~~/utils/interfaces'
+const { account } = $(storeToRefs(useWeb3Store()))
 const router = useRouter()
 const content = [{
   name: 'Soulship Org',
@@ -53,6 +55,28 @@ const showModal = $ref<boolean>(false)
 const routeLink = (address: string) => {
   router.push(`/my-collections/${address}`)
 }
+const client = useSupabaseClient()
+
+// Status : 1:pending,0:rejected,2:approved-waiting
+const getRequestData = async (account: string) => {
+  const { data: organizationRequests, error: organizationRequestError } = await useAsyncData('requests', async () => {
+    const { data } = await client.from('requests').select('*').eq('organization_address', account)
+    return data
+  })
+  const { data: waitingRequests, error: waitingRequestError } = await useAsyncData('requests', async () => {
+    const { data } = await client.from('requests').select('*').eq('receiver', account).eq('status', 2)
+    return data
+  })
+  const updatedWaitingRequests = await map(waitingRequests.value, (request) => {
+    request.status = 3
+    return request
+  })
+  const fullRequests = flat([updatedWaitingRequests, organizationRequests.value])
+  console.log('🚀 ~ file: index.vue ~ line 77 ~ getRequestData ~ fullRequests', fullRequests)
+}
+onMounted(() => {
+  getRequestData(account)
+})
 </script>
 
 <template>
