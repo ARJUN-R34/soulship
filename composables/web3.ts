@@ -52,54 +52,23 @@ export const useWeb3Store = defineStore('web3', () => {
     }
   }
   async function signData(validityStatus: string) {
-    const data = JSON.stringify({
-      domain: {
-        // Defining the chain aka Rinkeby testnet or Ethereum Main Net
-        chainId: domain.chainId,
-        // Give a user friendly name to the specific contract you are signing for.
-        name: domain.name,
-        // Just let's you know the latest version. Definitely make sure the field name is correct.
-        version: domain.version,
-        // verifyingContract: domain.verifyingContract,
+    const msgParams2 = [
+      {
+        type: 'string', // Any valid solidity type
+        name: 'validity', // Any string label you want
+        value: 'Once', // The value to sign
       },
-
-      // Defining the message signing data content.
-      message: {
-        /*
-         - Anything you want. Just a JSON Blob that encodes the data you want to send
-         - No required fields
-         - This is DApp Specific
-         - Be as explicit as possible when building out the message schema.
-        */
-        validation: validityStatus,
-      },
-      // Refers to the keys of the types object below.
-      primaryType: 'Validation',
-      types: {
-        // TODO: Clarify if EIP712Domain refers to the domain the contract is hosted on
-        EIP712Domain: [
-          { name: 'name', type: 'string' },
-          { name: 'version', type: 'string' },
-          { name: 'chainId', type: 'uint256' },
-        ],
-        // Not an EIP712Domain definition
-        Validation: [{ name: 'validation', type: 'string' }],
-      },
-    })
+    ]
     try {
       const { ethereum } = window
       if (ethereum) {
-        const method = 'eth_signTypedData_v4'
-        const params = [account.value, data]
+        const params = [msgParams2, account.value]
+        const method = 'eth_signTypedData'
         const result = await ethereum.request({ method, params, from: account.value })
         const signature = result.substring(2)
-        console.log('🚀 ~ file: sign-txn.ts ~ line 32 ~ signData ~ signature', signature)
         const r = `0x${signature.substring(0, 64)}`
-        console.log('🚀 ~ file: sign-txn.ts ~ line 34 ~ signData ~ r', r)
         const s = `0x${signature.substring(64, 128)}`
-        console.log('🚀 ~ file: sign-txn.ts ~ line 36 ~ signData ~ s', s)
         const v = parseInt(signature.substring(128, 130), 16)
-        console.log('🚀 ~ file: sign-txn.ts ~ line 38 ~ signData ~ v', v)
       }
     }
     catch (e) {
