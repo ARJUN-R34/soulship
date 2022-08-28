@@ -54,17 +54,9 @@ const selectToken = (value: any) => {
       <Suspense>
         <div class="py-8 px-8">
           <div class="collection-title">
-            <div class="text-gray-400 font-bold">
-              My Collections
+            <div class="text-gray-400 font-bold text-left">
+              Create Collection
             </div>
-            <Button @click="showModal = true">
-              <template #content>
-                <label class="flex justify-start items-center gap-2 text-xs">
-                  <IconsAdd class="w-4 h-4 fill-white" />
-                  Create Collection
-                </label>
-              </template>
-            </Button>
           </div>
           <Table
             :is-hover="true" :items="content" :col-data="colData"
@@ -81,13 +73,13 @@ const selectToken = (value: any) => {
     </div>
     <Modal v-if="showModal" @click:close="showModal = $event">
       <template #content>
-        <div class="flex justify-start items-center py-8">
-          <div class="w-[20%] flex justify-start items-center">
+        <div class="flex justify-between items-center pt-8">
+          <div class="w-[30%] flex justify-start items-center">
             <div class="flex justify-start items-center w-36 h-36 rounded-lg bg-secondary overflow-hidden">
               <img :src="selectedToken?.logo_url" alt="logo">
             </div>
           </div>
-          <div class="w-[75%] text-left">
+          <div class="w-[60%] text-left">
             <div class="w-full flex justify-between items-center py-3 gap-4 text-sm text-gray-400">
               <div class="w-[30%] font-bold">
                 Name
@@ -128,9 +120,22 @@ const selectToken = (value: any) => {
               <div class="w-[5%]">
                 :
               </div>
-              <div class="w-[65%] font-light">
+              <div class="w-[65%] font-light truncate">
                 {{ selectedToken.address }}
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between items-start pt-2">
+          <div class="w-full flex justify-between items-start py-3 gap-4 text-sm text-gray-400">
+            <div class="w-[30%] font-bold">
+              Description
+            </div>
+            <div class="w-[5%]">
+              :
+            </div>
+            <div class="w-[65%] font-light">
+              {{ selectedToken.description }}
             </div>
           </div>
         </div>

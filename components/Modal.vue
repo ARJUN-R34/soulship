@@ -15,7 +15,7 @@ const emit = defineEmits<IModalEmit>()
     :class="$style.modal"
   >
     <div class="bg-secondary opacity-75 w-full h-full absolute top-0 left-0" />
-    <div class="m-auto bg-secondary-100 relative p-16 shadow-modal rounded-[70px]" :class="$style['modal-box']">
+    <div class="m-auto bg-secondary-100 shadow-navigation relative p-16 shadow-modal rounded-[70px]" :class="$style['modal-box']">
       <button
         class="btn btn-sm btn-circle btn-ghost absolute right-10 top-10 text-xl text-gray-400 font-black"
         @click="emit('click:close', false)"
