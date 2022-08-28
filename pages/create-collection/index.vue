@@ -2,6 +2,7 @@
 import type { CIDString } from 'web3.storage'
 import type { ICoulmnData } from '~~/utils/interfaces'
 const { getOrgDetails } = useWeb3Store()
+const router = useRouter()
 const { account } = $(storeToRefs(useWeb3Store()))
 
 const content = [{
@@ -35,10 +36,13 @@ const deploy = async () => {
   let imgCid
   if (params.logo)
     imgCid = await useStoreFile(params.logo)
-// https://${imgCid}.ipfs.w3s.link/logo.png
+  // https://${imgCid}.ipfs.w3s.link/logo.png
 }
 onMounted(async () => {
   const result = await getOrgDetails(account)
+  console.log('🚀 ~ file: index.vue ~ line 43 ~ onMounted ~ account', result?.organizationAddress)
+  if (result && result?.organizationAddress !== account)
+    router.back()
   console.log('🚀 ~ file: index.vue ~ line 42 ~ onBeforeMount ~ result', result)
 })
 </script>

@@ -10,12 +10,15 @@ const routeLink = (index: number, param: string) => {
 }
 const regParams = reactive({
   orgName: '',
-  logoUri: '',
+  logo: null,
 })
 const register = async () => {
-  // async function registration(regParams.orgName, regParams.logoUri) {
-  const result = await registration(regParams.orgName, regParams.logoUri)
-  console.log('🚀 ~ file: dashboard.vue ~ line 17 ~ registration ~ result', result)
+  let imgCid
+  if (regParams.logo)
+    imgCid = await useStoreFile(regParams.logo)
+  console.log('🚀 ~ file: dashboard.vue ~ line 17 ~ register ~ imgCid', imgCid)
+  // https://${imgCid}.ipfs.w3s.link/logo.png
+  const result = await registration(regParams.orgName, `https://${imgCid}.ipfs.w3s.link/logo.png`)
 }
 </script>
 
@@ -72,7 +75,7 @@ const register = async () => {
         </div>
       </div>
     </div>
-    <Modal v-if="showRegister" @click:close="showRegister = false">
+    <Modal v-if="!showRegister" @click:close="showRegister = false">
       <template #title>
         Register your organisation
       </template>
@@ -87,7 +90,7 @@ const register = async () => {
           <div class="text-sm font-bold text-gray-400">
             Upload Logo
           </div>
-          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logoUri = $event" />
+          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logo = $event" />
         </div>
       </template>
       <template #buttons>
