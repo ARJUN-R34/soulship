@@ -33,7 +33,6 @@ const deploy = async () => {
   let imgCid
   if (params.logo)
     imgCid = await useStoreFile(params.logo)
-  console.log('🚀 ~ file: index.vue ~ line 35 ~ deploy ~ imgCid', imgCid)
 // https://${imgCid}.ipfs.w3s.link/logo.png
 }
 </script>

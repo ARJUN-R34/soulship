@@ -38,6 +38,12 @@ export const useWeb3Store = defineStore('web3', () => {
     catch (error) {
     }
   }
+
+  // getOrgDetails(address orgAddress) public view returns (Organizations memory)
+  // getAllContracts() public view returns (address[] memory)
+
+  // CreateNewChild(string memory name, string memory symbol, string memory utility, string memory uri) public returns (bool)
+  // registration(string memory orgName, string memory logoUri) public returns (bool)
   return {
     connectWallet,
     account,

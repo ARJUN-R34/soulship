@@ -34,7 +34,6 @@ const mint_request = async () => {
     const { data } = await client.from('requests').insert(newRequest)
     return data
   })
-  console.log('🚀 ~ file: [address].vue ~ res', res.value)
 }
 </script>
 

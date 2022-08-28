@@ -1,17 +1,15 @@
 <script lang="ts" setup>
 let { selectedItem } = $(storeToRefs(useUserStore()))
-const { account, network } = $(storeToRefs(useWeb3Store()))
-const { $reset: web3Logout } = useWeb3Store()
 const showRegister = $ref<boolean>(false)
 const router = useRouter()
 const routeLink = (index: number, param: string) => {
   selectedItem = index
   router.push({ path: param })
 }
-const logout = () => {
-  web3Logout()
-  router.push('/')
-}
+const regParams = reactive({
+  orgName: '',
+  logoUri: '',
+})
 </script>
 
 <template>
@@ -27,11 +25,13 @@ const logout = () => {
         <div class="menu relative justify-between">
           <div>
             <div class="z-20 ml-8 w-[70%] bg-opacity-90 backdrop-blur sticky top-0 items-center gap-2 py-2 flex pt-10">
-              <div aria-current="page" aria-label="Homepage" class="w-full flex text-center flex-0 hover:cursor-pointer">
-                <div class="font-title text-4xl text-gray-400 inline-flex transition-all duration-200">
-                  <img alt="logo" src="~/assets/images/logo.svg">
+              <NuxtLink to="/">
+                <div aria-current="page" aria-label="Homepage" class="w-full flex text-center flex-0 hover:cursor-pointer">
+                  <div class="font-title text-4xl text-gray-400 inline-flex transition-all duration-200">
+                    <img alt="logo" src="~/assets/images/logo.svg">
+                  </div>
                 </div>
-              </div>
+              </NuxtLink>
             </div>
             <ul class="mt-12 overflow-y-auto w-full text-gray-400">
               <!-- Sidebar content here -->
@@ -74,13 +74,13 @@ const logout = () => {
           <div class="text-sm font-bold text-gray-400">
             Organisation Name
           </div>
-          <FormTextInput class="w-72" placeholder="Enter Organisation Name" />
+          <FormTextInput v-model="regParams.orgName" class="w-72" placeholder="Enter Organisation Name" />
         </div>
         <div class="flex justify-between items-center py-6 gap-4">
           <div class="text-sm font-bold text-gray-400">
             Upload Logo
           </div>
-          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" />
+          <FormFileUpload class="w-72" placeholder="Enter Organisation Name" @update:model-value="regParams.logoUri = $event" />
         </div>
       </template>
       <template #buttons>

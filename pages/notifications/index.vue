@@ -43,8 +43,8 @@ onMounted(() => {
 <template>
   <NuxtLayout name="dashboard">
     <div class="font-poppins text-center w-full h-full">
-      <main class="py-8 px-16">
-        <div class="title">
+      <main class="p-16">
+        <!-- <div class="title">
           <IconsUser class="icon" /> {{ data[0] }}
         </div>
         <div class="card-bg">
@@ -55,7 +55,7 @@ onMounted(() => {
               </div>
             </template>
           </AlertCard>
-        </div>
+        </div> -->
         <div class="title">
           <IconsUser class="icon" /> {{ data[1] }}
         </div>

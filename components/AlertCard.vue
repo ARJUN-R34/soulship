@@ -24,10 +24,10 @@ const bgColors = {
       <slot name="content" />
     </div>
     <div v-if="status === 'WAITING'" class="flex-none">
-      <button class="btn btn-sm btn-ghost">
+      <button class="w-20 btn btn-sm btn-error bg-red-700 border-0 text-white normal-case">
         Deny
       </button>
-      <button class="btn btn-sm btn-primary">
+      <button class="w-20 btn btn-sm btn-success bg-green-600 border-0 text-white normal-case">
         Accept
       </button>
     </div>
