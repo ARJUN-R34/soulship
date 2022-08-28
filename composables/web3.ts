@@ -5,12 +5,19 @@
 import { ethers } from 'ethers'
 import contractABI from '../contracts/artifacts/SoulshipFactory.json'
 import { chainIds } from '~~/repository/ChainIds'
+import { EIP712Domain, domain } from '~~/repository/signTxn'
 const contractAddress = '0x2A8385c6E0529Fd91D9B320756F797DdF402c8aF'
-
+ type validityType = 'once' | 'forever'
+interface IMessage {
+  Validity: validityType
+}
 export const useWeb3Store = defineStore('web3', () => {
   const account = ref('')
   const network = ref('')
   const organization_name = ref('sample_org')
+  const message = ref<IMessage>({
+    Validity: 'once',
+  })
   async function getAccount() {
     try {
       const { ethereum } = window
@@ -57,7 +64,36 @@ export const useWeb3Store = defineStore('web3', () => {
     catch (error) {
     }
   }
-
+  async function signData() {
+    const data = JSON.stringify({
+      types: {
+        EIP712Domain,
+        message: message.value,
+      },
+      domain,
+      primaryType: 'message',
+      message: message.value,
+    })
+    try {
+      const { ethereum } = window
+      if (ethereum) {
+        const method = 'eth_signTypedData_v4'
+        const params = [account.value, data]
+        const result = await ethereum.request({ method, params, from: account.value })
+        const signature = result.substring(2)
+        console.log('🚀 ~ file: sign-txn.ts ~ line 32 ~ signData ~ signature', signature)
+        const r = `0x${signature.substring(0, 64)}`
+        console.log('🚀 ~ file: sign-txn.ts ~ line 34 ~ signData ~ r', r)
+        const s = `0x${signature.substring(64, 128)}`
+        console.log('🚀 ~ file: sign-txn.ts ~ line 36 ~ signData ~ s', s)
+        const v = parseInt(signature.substring(128, 130), 16)
+        console.log('🚀 ~ file: sign-txn.ts ~ line 38 ~ signData ~ v', v)
+      }
+    }
+    catch (e) {
+      console.log('🚀 ~ file: web3.ts ~ line 21 ~ signData ~ e', e)
+    }
+  }
   async function getOrgDetails(orgAddress: string) {
     try {
       const Contract = await getContract()
@@ -97,6 +133,7 @@ export const useWeb3Store = defineStore('web3', () => {
     network,
     getAccount,
     getOrgDetails,
+    signData,
     getAllContracts,
     CreateNewChild,
     registration,
