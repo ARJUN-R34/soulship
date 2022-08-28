@@ -49,7 +49,7 @@ const logout = () => {
               </li>
             </ul>
           </div>
-          <div class="z-20 px-8 bg-opacity-90 backdrop-blur sticky bottom-4 items-center gap-2 py-4 flex pt-10">
+          <!-- <div class="z-20 px-8 bg-opacity-90 backdrop-blur sticky bottom-4 items-center gap-2 py-4 flex pt-10">
             <div aria-current="page" aria-label="Homepage" class="w-full flex text-center flex-0 hover:cursor-pointer">
               <Button class="w-full" @click="logout">
                 <template #content>
@@ -61,7 +61,7 @@ const logout = () => {
                 </template>
               </Button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
