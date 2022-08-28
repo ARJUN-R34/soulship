@@ -1,13 +1,6 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
-  runtimeConfig: {
-    // Keys within public, will be also exposed to the client-side
-    public: {
-      SUPABASE_URL: 'https://vrvotvgixvrddbrhbdcb.supabase.co',
-      SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydm90dmdpeHZyZGRicmhiZGNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjE2Mjg3NzMsImV4cCI6MTk3NzIwNDc3M30.RJg-q4dXglFsbWQfDPsc5aQMKsispgJlWY8h118sel8',
-    },
-  },
   app: {
     cdnURL: './',
   },
